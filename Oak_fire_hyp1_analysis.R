@@ -15,7 +15,7 @@ library(pacman)
 p_load("fBasics", "rcompanion", "tidyverse", "lme4", "car", "vegan", "phyloseq", "DESeq2", "dendextend")
 
 # First, test if dNDVI varies by unburned and burned sites
-soil_site_metadata <- read.table("Oak_fire_2019_site_metadata.csv", header = T, sep = ",")
+soil_site_metadata <- read.table("Oak_fire_site_metadata.csv", header = T, sep = ",")
 
 ndvi_mod <- lmer(dNDVI ~ burn_status + (1|dd_lat) + (1|dd_long) + (1|elevation), data = soil_site_metadata)
 Anova(ndvi_mod)
@@ -37,13 +37,13 @@ Anova(ph_mod)
 setwd("/Users/kendallb/Documents/Documents_KK_Macbook_Pro/Research/Collaborations/Oak_fire_2019_prj/Oak_fire_2019_microbiome_data")
 
 #### 1) LOAD IN DATA #### 
-bact_count_table <- read.table("Oak_fire_2019_Bact_ASVs_counts_no_lowmod.tsv", header = T, row.names = 1, check.names = F, sep = "\t")
-fungi_count_table <- read.table("Oak_fire_2019_Fungi_ASVs_counts_no_lowmod.tsv", header = T, row.names = 1, check.names = F, sep = "\t")
+bact_count_table <- read.table("Oak_fire_Bact_ASVs_counts.tsv", header = T, row.names = 1, check.names = F, sep = "\t")
+fungi_count_table <- read.table("Oak_fire_Fungi_ASVs_counts.tsv", header = T, row.names = 1, check.names = F, sep = "\t")
 
-bact_taxa_table <- read.table("Oak_fire_2019_Bact_ASVs_taxonomy_no_lowmod.tsv", header = T, check.names = F, sep = "\t")
-fungi_taxa_table <- read.table("Oak_fire_2019_Fungi_ASVs_taxonomy_no_lowmod.tsv", header = T, check.names = F, sep = "\t")
+bact_taxa_table <- read.table("Oak_fire_Bact_ASVs_taxonomy.tsv", header = T, check.names = F, sep = "\t")
+fungi_taxa_table <- read.table("Oak_fire_Fungi_ASVs_taxonomy.tsv", header = T, check.names = F, sep = "\t")
 
-sample_info_table <- read.table("Oak_fire_2019_sample_info_tab_no_lowmod.csv", header = T, row.names = 1, sep = ",")
+sample_info_table <- read.table("Oak_fire_sample_info.csv", header = T, row.names = 1, sep = ",")
 # Note: since the row names I want are in column 1, we can set the row names to be those that are in column 1.
 
 
@@ -116,7 +116,7 @@ colnames(hierarchy_table) <- c("Sample", "Burn_status")
 #### 4) DOES THE AMOUNT OF EACH FUNGAL GUILD DIFFER BETWEEN UNBURNED & BURNED SOIL? ####
 
 # load in count table with row ID as first column and fungal_guild column added
-funguild_count_table <- read.table("Oak_fire_2019_funguild_count_for_r.csv", header = T, row.names = 1, sep = ",")
+funguild_count_table <- read.table("Oak_fire_FunGuild_count_for_R.csv", header = T, row.names = 1, sep = ",")
 
 # Sidebar: Identify proportions of each fungal guild by counting number of rows for each guild
 funguild_count_table %>% group_by(fungal_guild) %>% tally()
@@ -263,7 +263,7 @@ Anova(Sapro_abundance_mod)
 library(hilldiv)
 
 # load in count table with row ID as first column and fungal_guild column added
-funguild_count_table <- read.table("Oak_fire_2019_funguild_count_for_r.csv", header = T, row.names = 1, sep = ",")
+funguild_count_table <- read.table("Oak_fire_FunGuild_count_for_R.csv", header = T, row.names = 1, sep = ",")
 
 # make separate dataframes for each fungal guild
 AMF_count_tab <- funguild_count_table %>% filter(fungal_guild == "Arbuscular_mycorrhizal")
