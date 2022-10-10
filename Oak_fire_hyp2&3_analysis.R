@@ -10,7 +10,7 @@ library(pacman)
 p_load("fBasics", "rcompanion", "tidyverse", "lme4", "lmerTest", "car",  "agricolae", "bbmle")
 
 #### Load in data ####
-master_rev_data <- read.csv("oak_pine_master_revised_r.csv") # does not contain LGB or NEON sites ("low-mod" burn)
+master_rev_data <- read.csv("oak_pine_master_data.csv")
 
 # Check structure of data sets
 str(master_data) 
